@@ -15,14 +15,20 @@ Future<void> runApp() async{
   printUnderlined("Wilkommen zu diesem Tool!\n");
   print('Um mehr zu erfahren gebe den Befehl "hilfe" ein.\n');
   while(true){
-    String? userInput = input(">: ");
-    if(userInput == "berechne"){
-      await execute();
+    final String? userInput = input(">: ");
+    final List<String> inputs = userInput!.split(" ");
+    if(inputs[0] == "berechne"){
+      if(inputs.length > 1 && inputs[1] == "-o"){
+        await execute(inputs[2]);
+      }
+      else{
+        await execute();
+      }
     }
-    else if(userInput == "hilfe"){
+    else if(inputs[0] == "hilfe"){
       print("Irgendein Text der die Befehle erklärt.");
     }
-    else if(userInput == "exit"){
+    else if(inputs[0] == "exit"){
       return;
     }
     else{
@@ -31,15 +37,22 @@ Future<void> runApp() async{
   }
 }
 
-Future<void> execute() async{
+Future<void> execute([String? outputDir]) async{
   await printProgressIndicator("Erstelle Excel Datei", 10);
   var excel = Excel.createExcel();
   excel.sheets["Sheet1"]?.updateCell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: 0), 100);
   var encoded = excel.encode();
   const String fileName = "test.xlsx";
-  File(fileName)..createSync()..writeAsBytesSync(encoded!);
+  final String filePath;
+  if(outputDir == null){
+    filePath = fileName;
+  }
+  else{
+    filePath = outputDir + "/" + fileName;
+  }
+  File(filePath)..createSync()..writeAsBytesSync(encoded!);
   print("\x1B[38;5;154m$fileName(Excel) wurde erfolgreich erstellt\x1B[0m");
-  print("\x1B[38;5;154mDu findes $fileName unter: $current\x1B[0m");
+  print("\x1B[38;5;154mDu findes $fileName unter: ${outputDir ?? current}\x1B[0m");
 }
 
 Future<void> printProgressIndicator(String message, int seconds, [List<String> symbols = const [".", "..", "..."]]) async{
