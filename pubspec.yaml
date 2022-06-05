@@ -1,0 +1,15 @@
+name: cli_app
+description: A simple command-line application.
+version: 1.0.0
+# homepage: https://www.example.com
+
+environment:
+  sdk: '>=2.16.2 <3.0.0'
+
+
+dependencies:
+  path: ^1.8.0
+  excel: ^2.0.0-null-safety-3
+
+dev_dependencies:
+  lints: ^1.0.0
