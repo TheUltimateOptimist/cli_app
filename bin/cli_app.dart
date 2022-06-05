@@ -32,13 +32,14 @@ Future<void> runApp() async{
 }
 
 Future<void> execute() async{
-  await printProgressIndicator("Erstelle excel Datei", 10);
+  await printProgressIndicator("Erstelle Excel Datei", 10);
   var excel = Excel.createExcel();
   excel.sheets["Sheet1"]?.updateCell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: 0), 100);
   var encoded = excel.encode();
-  File("test.xlsx")..createSync()..writeAsBytesSync(encoded!);
-  print("\x1B[38;5;154mExcel Datei erfolgreich erstellt\x1B[0m");
-  print("\x1B[38;5;154mDu findes sie unter: $current\x1B[0m");
+  const String fileName = "test.xlsx";
+  File(fileName)..createSync()..writeAsBytesSync(encoded!);
+  print("\x1B[38;5;154m$fileName(Excel) wurde erfolgreich erstellt\x1B[0m");
+  print("\x1B[38;5;154mDu findes $fileName unter: $current\x1B[0m");
 }
 
 Future<void> printProgressIndicator(String message, int seconds, [List<String> symbols = const [".", "..", "..."]]) async{
