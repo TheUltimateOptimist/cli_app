@@ -1,11 +1,8 @@
 import 'dart:io';
 import 'package:excel/excel.dart';
+import 'package:path/path.dart';
 
 void main(List<String> arguments) async{
-  // stdout.write("Hello World!");
-  // await Future.delayed(Duration(seconds: 5));
-  // stdout.write("\x1B[2K\r");
-  // await Future.delayed(Duration(seconds: 5));
   await runApp();
 }
 
@@ -41,6 +38,7 @@ Future<void> execute() async{
   var encoded = excel.encode();
   File("test.xlsx")..createSync()..writeAsBytesSync(encoded!);
   print("\x1B[38;5;154mExcel Datei erfolgreich erstellt\x1B[0m");
+  print("\x1B[38;5;154mDu findes sie unter: $current\x1B[0m");
 }
 
 Future<void> printProgressIndicator(String message, int seconds, [List<String> symbols = const [".", "..", "..."]]) async{
