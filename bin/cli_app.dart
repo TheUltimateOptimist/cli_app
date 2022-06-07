@@ -5,6 +5,7 @@ import 'package:path/path.dart';
 void main(List<String> arguments) async{
   if(Platform.isMacOS){
     print("\x1B[2J");
+    print("\x1B[H");
   }
   await runApp();
 }
