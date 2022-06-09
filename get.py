@@ -1,7 +1,7 @@
 import pyodbc
 
-conn = pyodbc.connect('DSN=TestConnection')
+conn = pyodbc.connect('DSN=Stieber')
 cursor = conn.cursor()
-cursor.execute("Select * from scraped_companys LIMIT 30")
+cursor.execute("Select * from beleg LIMIT 20")
 for row in cursor.fetchall():
     print(row)
